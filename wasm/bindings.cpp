@@ -17,6 +17,11 @@
 // a flow instead of the hidden warm-up (RiverSimulation::startFromFlow); call it
 // before the first advance. It returns 0, or 1 with the message in river_last_error().
 //
+// river_grid(out) writes 4 doubles that place the flow's cells on the page: x0 and y0
+// (page x and y of the lattice's top-left corner; cell (k, j) is centred at
+// x0 + (k + 0.5) h, y0 + (j + 0.5) h), h (page units per cell) and the page units per
+// second of one lattice velocity unit.
+//
 // river_set_view(right, bottom) shows only x <= right, y <= bottom (page units): dots
 // enter where water flows in across those edges. It never changes the flow.
 //
@@ -118,6 +123,15 @@ void river_warm_up() {
 
 void river_export_flow(float* out) {
     if (river && out) river->exportFlow(out);
+}
+
+void river_grid(double* out) {
+    if (!river || !out) return;
+    const lbm::RiverUnits& u = river->units();
+    out[0] = u.x0;
+    out[1] = u.y0;
+    out[2] = u.h;
+    out[3] = u.velocityScale;
 }
 
 int river_start_from_flow(const float* in) {

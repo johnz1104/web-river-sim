@@ -39,7 +39,7 @@ endif()
 target_compile_options(lbm PRIVATE ${LBM_WASM_FLAGS})
 
 set(LBM_WASM_EXPORTS
-    _river_create _river_last_error _river_set_view _river_warm_up _river_export_flow
+    _river_create _river_last_error _river_set_view _river_warm_up _river_export_flow _river_grid
     _river_start_from_flow _river_advance _river_dot_count
     _river_dots _river_dot_stride _river_tail_ages _river_set_dot_jitter
     _river_diagnostic_count _river_diagnostics _river_destroy _malloc _free)
